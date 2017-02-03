@@ -55,15 +55,11 @@ public class G3Slow extends OpMode {
 
         motorRight = hardwareMap.dcMotor.get("motorRight");
         motorLeft = hardwareMap.dcMotor.get("motorLeft");
-        //motorLeft.setDirection(DcMotor.Direction.REVERSE);
+        motorLeft.setDirection(DcMotor.Direction.REVERSE);
         scoop = hardwareMap.dcMotor.get("scoop");
         shoot = hardwareMap.dcMotor.get("shoot");
         shoot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         shoot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
     }
@@ -88,42 +84,38 @@ public class G3Slow extends OpMode {
         right = (float) scaleInput(right);
         left = (float) scaleInput(left);
 
+        //float left2 = -gamepad2.left_stick_y;
+        float right2 = -gamepad2.right_stick_y;
 
+
+        right2 = Range.clip(right2, -1, 1);
+        //left2 = Range.clip(left2, -1, 1);
+
+        right2 = (float) scaleInput(right2);
+        //left2 = (float) scaleInput(left2);
+        double shootInitial = shoot.getCurrentPosition();
 
         motorRight.setPower(0.2*right);
         motorLeft.setPower(0.2*left);
-
+        shoot.setPower(0.1*right2);
         telemetry.addData("Shooter:","%d",
                 shoot.getCurrentPosition());
         telemetry.addData("Motors:", "Left %d, Right%d",motorLeft.getCurrentPosition(),motorRight.getCurrentPosition());
         telemetry.update();
 
-        if (gamepad1.dpad_down) {
 
-            shoot.setPower(-0.1);
 
-        }
-        if (gamepad1.dpad_up) {
-
-            shoot.setPower(0.1);
-
-        }
-        if (!gamepad1.dpad_down && !gamepad1.dpad_up) {
-            shoot.setPower(0);
-
-        }
-
-        if (gamepad1.right_bumper) {
+        if (gamepad2.right_bumper) {
 
             scoop.setPower(.4);
 
         }
 
-        if (gamepad1.left_bumper) {
+        if (gamepad2.left_bumper) {
             scoop.setPower(-.4);
 
         }
-        if (!gamepad1.left_bumper && !gamepad1.right_bumper) {
+        if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
             scoop.setPower(0);
 
         }
@@ -134,18 +126,6 @@ public class G3Slow extends OpMode {
             motorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             shoot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
-        }
-        if (gamepad1.b) {
-
-            motorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            telemetry.addData("Motors:", "Left %d, Right%d",motorLeft.getCurrentPosition(),motorRight.getCurrentPosition());
-            telemetry.update();
-
-            motorLeft.setTargetPosition(1689);
-            motorLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            motorLeft.setPower(0.8);
 
 
         }

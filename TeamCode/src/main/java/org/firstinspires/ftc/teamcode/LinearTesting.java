@@ -158,9 +158,13 @@ public class LinearTesting extends LinearOpMode {
             OR
             12. If color wrong then move back, forward to press beacon again, then back to park
          */
+//Test
+        encoderDrive(0.2,39,39,5);
+        encoderDrive(0.2,-39,-39,5);
+        /*
         //Beginning the motion
         //1. Shoot 1st ball
-        /*shoot.setTargetPosition(-2114);
+        shoot.setTargetPosition(-1099);
         shoot.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         shoot.setPower(0.4);
         sleep(200);
@@ -174,11 +178,11 @@ public class LinearTesting extends LinearOpMode {
             telemetry.update();
         }
         //2. Load
-        scoop.setPower(0.7);
+        scoop.setPower(-0.7);
         shoot.setPower(0);
         sleep(1500);
         //3. Shoot 2nd ball
-        shoot.setTargetPosition(-3000);
+        shoot.setTargetPosition(-1346);
         shoot.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         shoot.setPower(1);
         scoop.setPower(0);
@@ -191,15 +195,15 @@ public class LinearTesting extends LinearOpMode {
             telemetry.update();
         }
         //4. Rotate
-        //driveToPosition(1,1553,-1501,5);
-        encoderDrive(0.2,-12,12,5);
+        driveToPosition(0.5,-1045,1053,5);
+        //encoderDrive(0.2,-12,12,5);
         //5. Move forward
-        //driveToPosition(1,-2837,-5822,5);
-        encoderDrive(0.2,12,12,5);
+        driveToPosition(0.5,-6765,-6759,5);
+        //encoderDrive(0.2,12,12,5);
         //6. Rotate
-        //driveToPosition(1,-4394,-4262,5);
-        encoderDrive(0.2,12,-12,5);
-        */
+        driveToPosition(0.5,-5095,-8467,5);
+        //encoderDrive(0.2,12,-12,5);
+
         //7. Move Forward to seek the line
         /*
         while (opModeIsActive() && (lightSensor.getLightDetected() < WHITE_THRESHOLD)) {
@@ -215,7 +219,7 @@ public class LinearTesting extends LinearOpMode {
             motorRight.setPower(0);
         }
         sleep(2000);
-        */
+
         //encoderDrive(0.2,24,24,5);
        driveToPosition(0.2,-3272,-3257,10);
         sleep(250);
@@ -223,7 +227,7 @@ public class LinearTesting extends LinearOpMode {
         driveToPosition(0.2,-944,942,10);
         sleep(250);
         driveToPosition(0.2,-3340,-1486,10);
-        /*
+
         //Sleep to give me time to test
         //8. Rotate till find the gray area again to position the motor
         while (opModeIsActive() && (lightSensor.getLightDetected() < gray)) {
@@ -231,31 +235,32 @@ public class LinearTesting extends LinearOpMode {
             motorLeft.setPower(-0.2);
             motorRight.setPower(0);
         }
-        */
+
         //9. Move forward to press the beacon
-        encoderDrive(1,12,12,2);
+        driveToPosition(0.5,4749,4777,5);
         //10. Check the color and
         telemetry.addData("ColorNumber", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
         telemetry.update();
-        sleep(2000);
+        sleep(5000);
         //12. If color right then move back to park
        if(colorSensor.blue()>=8 ){
 
            telemetry.addData("Blue", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
            telemetry.update();
-           encoderDrive(1,-12,-12,2);
+           driveToPosition(0.5,-4992,-5028,5);
            sleep(2000);
        }
        //12. If color wrong then move back and forward
         else {
            telemetry.addData("Red", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
            telemetry.update();
-           encoderDrive(1,-12,-12,5);
-           encoderDrive(1,12,12,5);
-            sleep(2000);
+           driveToPosition(0.5,-1898,-1890,5);
+           driveToPosition(0.5,2592,2833,5);
+           sleep(2000);
            }
         //move back to park
-        encoderDrive(1,-12,-12,2);
+        encoderDrive(0.5,-4992,-5028,5);
+        */
 
 
     }

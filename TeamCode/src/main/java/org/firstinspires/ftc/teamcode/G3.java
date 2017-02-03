@@ -37,7 +37,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
 @TeleOp(name="G3", group="Falcon")
@@ -48,7 +47,8 @@ public class G3 extends OpMode {
     DcMotor motorLeft;
     DcMotor scoop;
     DcMotor shoot;
-
+    // float positionLeft = 0;
+    //float positionRight = 0;
     private ElapsedTime shootTime = new ElapsedTime();
 
     public void start() {
@@ -74,7 +74,7 @@ public class G3 extends OpMode {
     public void loop() {
 
 
-        float left = -gamepad1.left_stick_y;
+        float left = gamepad1.left_stick_y;
         float right = gamepad1.right_stick_y;
 
 
@@ -95,18 +95,14 @@ public class G3 extends OpMode {
         telemetry.addData("Motors:", "Left %d, Right%d",motorLeft.getCurrentPosition(),motorRight.getCurrentPosition());
         telemetry.update();
 
-        if (gamepad1.dpad_down) {
-
-            shoot.setPower(-1);
-
-        }
         if (gamepad1.dpad_up) {
 
-            shoot.setPower(1);
+            shoot.setPower(.4);
 
         }
-        if (!gamepad1.dpad_down && !gamepad1.dpad_up) {
-            shoot.setPower(0);
+        if (gamepad1.dpad_down) {
+
+            shoot.setPower(-.4);
 
         }
 
