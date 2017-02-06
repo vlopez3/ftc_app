@@ -66,9 +66,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="LInear Testing", group="Pushbot")
+@Autonomous(name="Talon Linear Red", group="Pushbot")
  //@Disabled
-public class LinearTesting extends LinearOpMode {
+public class TalonLinearRed extends LinearOpMode {
 
     /* Declare OpMode members. */
     // HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
@@ -119,7 +119,7 @@ public class LinearTesting extends LinearOpMode {
         //lightSensor.enableLed(true);
 
         // Set the LED in the beginning
-       //colorSensor.enableLed(bLedOn);
+        //colorSensor.enableLed(bLedOn);
 
 
         // Send telemetry message to signify robot waiting;
@@ -136,7 +136,7 @@ public class LinearTesting extends LinearOpMode {
         shoot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
-        telemetry.addData("Path0",  "Starting at %7d :%7d Scoop: %7d",
+        telemetry.addData("Path0", "Starting at %7d :%7d Scoop: %7d",
                 motorLeft.getCurrentPosition(),
                 motorRight.getCurrentPosition(), scoop.getCurrentPosition());
         telemetry.update();
@@ -158,7 +158,6 @@ public class LinearTesting extends LinearOpMode {
             OR
             12. If color wrong then move back, forward to press beacon again, then back to park
          */
-
 
 
         //Beginning the motion
@@ -195,47 +194,48 @@ public class LinearTesting extends LinearOpMode {
             telemetry.update();
         }
 
-        driveToPosition(0.5,-1051,1036,5);
-        encoderDrive(0.4,-83,-83,5);
+        driveToPosition(0.5, -900, 900, 5);
+        encoderDrive(0.4, -105, -105, 5);
         //encoderDrive(0.2,-12,12,5);
         //5. Move forward
 
         //encoderDrive(0.2,12,12,5);
         //6. Rotate
-        driveToPosition(0.2,+1570,-1570,5);
+        driveToPosition(0.2, -1570, +1570, 5);
 
         sleep(250);
 
-        encoderDrive(0.5,46,46,5);
+        encoderDrive(0.5, 48, 48, 5);
 
         //10. Check the color and
-        telemetry.addData("ColorNumber", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
+        telemetry.addData("ColorNumber", "Red %d Blue %d Green %d", colorSensor.red(), colorSensor.blue(), colorSensor.green());
         telemetry.update();
 
-        //12. If color right (Blue) then move back to park
-       if(colorSensor.blue()>=8 ){
+        //12. If color wrong (Blue)
+        if (colorSensor.blue() >= 8) {
+            telemetry.addData("Blue", "Red %d Blue %d Green %d", colorSensor.red(), colorSensor.blue(), colorSensor.green());
+            telemetry.update();
+            encoderDrive(0.5, 10, 10, 5);
+            sleep(5000);
+            encoderDrive(0.5, -10, -10, 5);
+            encoderDrive(0.5, -46, -46, 5);
 
-           telemetry.addData("Blue", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
-           telemetry.update();
-           encoderDrive(0.5,-46,-46,5);
-           sleep(2000);
-       }
-       //12. If color wrong then move back and forward
+        }
+        //12. If color right then move back and forward
         else {
-           telemetry.addData("Red", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
-           telemetry.update();
-           encoderDrive(0.5,10,10,5);
-           sleep(5000);
-           encoderDrive(0.5,-10,-10,5);
-           encoderDrive(0.5,-46,-46,5);
+            telemetry.addData("Red", "Red %d Blue %d Green %d", colorSensor.red(), colorSensor.blue(), colorSensor.green());
+            telemetry.update();
+            encoderDrive(0.5, -46, -46, 5);
+            sleep(2000);
 
-           }
+
+        }
+    }
         //move back to park
 
 
 
 
-    }
 
 
 

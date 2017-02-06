@@ -66,9 +66,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="LInear Testing", group="Pushbot")
+@Autonomous(name="Talon Linear Blue", group="Pushbot")
  //@Disabled
-public class LinearTesting extends LinearOpMode {
+public class TalonLinearBlue extends LinearOpMode {
 
     /* Declare OpMode members. */
     // HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
@@ -86,7 +86,7 @@ public class LinearTesting extends LinearOpMode {
     static final double     TURN_SPEED              = 0.5;
     static final double     WHITE_THRESHOLD = 0.2;
     static final double gray = 0.1;
-    ColorSensor colorSensor;
+    private ColorSensor colorSensor;
     OpticalDistanceSensor   lightSensor;
 
 
@@ -196,7 +196,7 @@ public class LinearTesting extends LinearOpMode {
         }
 
         driveToPosition(0.5,-1051,1036,5);
-        encoderDrive(0.4,-83,-83,5);
+        encoderDrive(0.4,-84,-84,5);
         //encoderDrive(0.2,-12,12,5);
         //5. Move forward
 
@@ -224,9 +224,9 @@ public class LinearTesting extends LinearOpMode {
         else {
            telemetry.addData("Red", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
            telemetry.update();
-           encoderDrive(0.5,10,10,5);
-           sleep(5000);
            encoderDrive(0.5,-10,-10,5);
+           sleep(5000);
+           encoderDrive(0.5,10,10,5);
            encoderDrive(0.5,-46,-46,5);
 
            }

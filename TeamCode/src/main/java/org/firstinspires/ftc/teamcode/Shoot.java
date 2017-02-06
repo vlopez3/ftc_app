@@ -66,9 +66,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="LInear Testing", group="Pushbot")
+@Autonomous(name="Shoot", group="Pushbot")
  //@Disabled
-public class LinearTesting extends LinearOpMode {
+public class Shoot extends LinearOpMode {
 
     /* Declare OpMode members. */
     // HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
@@ -194,30 +194,34 @@ public class LinearTesting extends LinearOpMode {
                     motorRight.getCurrentPosition(), shoot.getCurrentPosition());
             telemetry.update();
         }
-
+/*
         driveToPosition(0.5,-1051,1036,5);
-        encoderDrive(0.4,-83,-83,5);
+        driveToPosition(0.4,-123,-123,5);
         //encoderDrive(0.2,-12,12,5);
         //5. Move forward
 
         //encoderDrive(0.2,12,12,5);
         //6. Rotate
-        driveToPosition(0.2,+1570,-1570,5);
+        driveToPosition(0.2,+1670,-1670,5);
 
         sleep(250);
 
-        encoderDrive(0.5,46,46,5);
+        encoderDrive(0.5,-20,-20,5);
 
         //10. Check the color and
         telemetry.addData("ColorNumber", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
         telemetry.update();
-
+        sleep(5000);
         //12. If color right (Blue) then move back to park
        if(colorSensor.blue()>=8 ){
 
            telemetry.addData("Blue", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
            telemetry.update();
-           encoderDrive(0.5,-46,-46,5);
+           encoderDrive(0.5,-20,-20,5);
+           driveToPosition(0.2,-1670,1670,5);
+           encoderDrive(0.5,-20,-20,5);
+
+
            sleep(2000);
        }
        //12. If color wrong then move back and forward
@@ -225,15 +229,15 @@ public class LinearTesting extends LinearOpMode {
            telemetry.addData("Red", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
            telemetry.update();
            encoderDrive(0.5,10,10,5);
-           sleep(5000);
            encoderDrive(0.5,-10,-10,5);
-           encoderDrive(0.5,-46,-46,5);
-
+           encoderDrive(0.5,-20,-20,5);
+           driveToPosition(0.2,-1670,1670,5);
+           encoderDrive(0.5,-20,-20,5);
            }
         //move back to park
 
 
-
+*/
 
     }
 

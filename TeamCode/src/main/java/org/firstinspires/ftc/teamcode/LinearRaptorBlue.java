@@ -66,9 +66,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="LInear Testing", group="Pushbot")
+@Autonomous(name="Lnear Raptor Blue", group="Pushbot")
  //@Disabled
-public class LinearTesting extends LinearOpMode {
+public class LinearRaptorBlue extends LinearOpMode {
 
     /* Declare OpMode members. */
     // HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
@@ -86,7 +86,7 @@ public class LinearTesting extends LinearOpMode {
     static final double     TURN_SPEED              = 0.5;
     static final double     WHITE_THRESHOLD = 0.2;
     static final double gray = 0.1;
-    ColorSensor colorSensor;
+    private ColorSensor colorSensor;
     OpticalDistanceSensor   lightSensor;
 
 
@@ -161,53 +161,9 @@ public class LinearTesting extends LinearOpMode {
 
 
 
-        //Beginning the motion
-        //1. Turns
-
-        //2. Shoot 1st ball
-        shoot.setTargetPosition(-1099);
-        shoot.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        shoot.setPower(0.4);
-        sleep(200);
-        //this while make the previous movement happens
-        while (opModeIsActive() &&
-                shoot.isBusy()) {
-            telemetry.addData("Intermedia", "%7d :%7d Scoop: %7d",
-                    motorLeft.getCurrentPosition(),
-                    motorRight.getCurrentPosition(), shoot.getCurrentPosition());
-            telemetry.update();
-        }
-        //3. Load
-        scoop.setPower(-0.7);
-        shoot.setPower(0);
-        sleep(1500);
-
-        //4. Shoot 2nd ball
-        scoop.setPower(0);
-        shoot.setTargetPosition(-1346);
-        shoot.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        shoot.setPower(1);
-        while (opModeIsActive() &&
-                shoot.isBusy()) {
-            telemetry.addData("Intermedia", "%7d :%7d Scoop: %7d",
-                    motorLeft.getCurrentPosition(),
-                    motorRight.getCurrentPosition(), shoot.getCurrentPosition());
-            telemetry.update();
-        }
-
-        driveToPosition(0.5,-1051,1036,5);
-        encoderDrive(0.4,-83,-83,5);
-        //encoderDrive(0.2,-12,12,5);
-        //5. Move forward
-
-        //encoderDrive(0.2,12,12,5);
-        //6. Rotate
-        driveToPosition(0.2,+1570,-1570,5);
-
-        sleep(250);
-
-        encoderDrive(0.5,46,46,5);
-
+        encoderDrive(0.5,50,50,5);
+        driveToPosition(0.2,-1019,1019,5);
+        encoderDrive(0.5,43,43,5);
         //10. Check the color and
         telemetry.addData("ColorNumber", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
         telemetry.update();
@@ -217,18 +173,18 @@ public class LinearTesting extends LinearOpMode {
 
            telemetry.addData("Blue", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
            telemetry.update();
-           encoderDrive(0.5,-46,-46,5);
+           sleep(5000);
+          encoderDrive(0.5,-48,-48,5);
            sleep(2000);
        }
        //12. If color wrong then move back and forward
         else {
            telemetry.addData("Red", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
            telemetry.update();
-           encoderDrive(0.5,10,10,5);
-           sleep(5000);
            encoderDrive(0.5,-10,-10,5);
-           encoderDrive(0.5,-46,-46,5);
-
+           encoderDrive(0.5,10,10,5);
+           encoderDrive(0.5,-48,-48,5);
+           sleep(2000);
            }
         //move back to park
 

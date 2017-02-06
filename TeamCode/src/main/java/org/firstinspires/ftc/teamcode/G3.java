@@ -105,6 +105,10 @@ public class G3 extends OpMode {
             shoot.setPower(-.4);
 
         }
+        if (!gamepad1.dpad_down && !gamepad1.dpad_up) {
+            shoot.setPower(0);
+
+        }
 
         if (gamepad1.right_bumper) {
 
