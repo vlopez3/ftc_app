@@ -85,7 +85,7 @@ public class TalonSlow extends OpMode {
 
         float left = gamepad1.left_stick_y;
         float right = gamepad1.right_stick_y;
-        float center = gamepad1.right_stick_x;
+        float center = gamepad2.left_stick_x;
 
 
         right = Range.clip(right, -1, 1);
@@ -132,7 +132,7 @@ public class TalonSlow extends OpMode {
             scoop.setPower(0);
 
         }
-        if (gamepad1.a) {
+        if (gamepad1.a || gamepad2.a ) {
             motorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             motorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             shoot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -155,12 +155,15 @@ public class TalonSlow extends OpMode {
         if (gamepad2.b) {
 
             shoot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            shoot.setTargetPosition(-6000);
-            shoot.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            shoot.setPower(0.4);
-            telemetry.addData("Shooting:","%d",
-                    shoot.getCurrentPosition());
-            telemetry.update();
+            int target=2000;
+            shoot.setTargetPosition(target);
+            while(shoot.getCurrentPosition()< target) {
+                shoot.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                shoot.setPower(0.4);
+                telemetry.addData("Shooting:", "Current %d Target %d",
+                        shoot.getCurrentPosition(), shoot.getTargetPosition());
+                telemetry.update();
+            }
             shoot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             shoot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 

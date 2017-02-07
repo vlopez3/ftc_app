@@ -169,7 +169,7 @@ public class LinearRaptorBlue extends LinearOpMode {
         telemetry.update();
 
         //12. If color right (Blue) then move back to park
-       if(colorSensor.blue()>=8 ){
+       if(colorSensor.blue()>=4 ){
 
            telemetry.addData("Blue", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
            telemetry.update();
