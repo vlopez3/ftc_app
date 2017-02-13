@@ -157,8 +157,12 @@ public class TalonLinear extends LinearOpMode {
             telemetry.update();
         }
     */
-        //Rotate
-        driveToPosition(1,1553,-1501,5);
+        //Rotate 90 to the right
+        driveToPosition(0.4,-1044,1044,5);
+        sleep(2000);
+        //Rotate 90 to the left (so it should end at initial point
+        driveToPosition(0.4,1044,-1044,5);
+
         //check new position if reset to 0
         telemetry.addData("Final turn:",  "Left %7d : Right %7d",
                 motorLeft.getCurrentPosition(),
@@ -292,7 +296,7 @@ public class TalonLinear extends LinearOpMode {
             motorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             motorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-            //  sleep(250);   // optional pause after each move
+            sleep(250);   // optional pause after each move
         }
     }
 

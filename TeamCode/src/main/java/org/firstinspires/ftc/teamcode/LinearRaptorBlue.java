@@ -38,6 +38,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
@@ -95,6 +96,7 @@ public class LinearRaptorBlue extends LinearOpMode {
     DcMotor motorLeft;
     DcMotor scoop;
     DcMotor shoot;
+    Servo servo;
 
 
     @Override
@@ -108,6 +110,7 @@ public class LinearRaptorBlue extends LinearOpMode {
         motorLeft = hardwareMap.dcMotor.get("motorLeft");
         scoop = hardwareMap.dcMotor.get("scoop");
         shoot = hardwareMap.dcMotor.get("shoot");
+        servo = hardwareMap.servo.get("servo");
         //lightSensor = hardwareMap.opticalDistanceSensor.get("ods");
 
 
@@ -160,28 +163,48 @@ public class LinearRaptorBlue extends LinearOpMode {
          */
 
 
-
+/*
         encoderDrive(0.5,50,50,5);
         driveToPosition(0.2,-1019,1019,5);
         encoderDrive(0.5,43,43,5);
+        */
         //10. Check the color and
         telemetry.addData("ColorNumber", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
         telemetry.update();
 
-        //12. If color right (Blue) then move back to park
+        //12. If color right then push and park
        if(colorSensor.blue()>=4 ){
 
            telemetry.addData("Blue", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
            telemetry.update();
            sleep(5000);
+           encoderDrive(0.5,5,5,5);
+           //check again if the beacon is blue
+           if(colorSensor.red()>=4 ){
+               sleep(5000);
+               //move back
+               encoderDrive(0.5,-10,-10,5);
+               //move forward to bpush again
+               encoderDrive(0.5,10,10,5);
+           }
           encoderDrive(0.5,-48,-48,5);
            sleep(2000);
        }
-       //12. If color wrong then move back and forward
+       //12. If color wrong then rotate servo then forward and then park
         else {
            telemetry.addData("Red", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
            telemetry.update();
+           //check the new position for the servo
+           servo.setPosition(1);
+           //move forward to push
            encoderDrive(0.5,-10,-10,5);
+           if(colorSensor.blue()>=4 ){
+               sleep(5000);
+               //move back
+               encoderDrive(0.5,-10,-10,5);
+               //move forward to bpush again
+               encoderDrive(0.5,10,10,5);
+           }
            encoderDrive(0.5,10,10,5);
            encoderDrive(0.5,-48,-48,5);
            sleep(2000);

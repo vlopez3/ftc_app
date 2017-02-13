@@ -109,7 +109,7 @@ public class TalonSlow extends OpMode {
 
         motorRight.setPower(0.2*right);
         motorLeft.setPower(0.2*left);
-        motor3.setPower(0.2*center);
+        motor3.setPower(center);
         shoot.setPower(0.1*right2);
         telemetry.addData("Shooter:","%d",
                 shoot.getCurrentPosition());
@@ -142,16 +142,7 @@ public class TalonSlow extends OpMode {
 
 
         }
-        if (gamepad2.a) {
-            motorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            shoot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            shoot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
-        }
+      /*
         if (gamepad2.b) {
 
             shoot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -168,7 +159,7 @@ public class TalonSlow extends OpMode {
             shoot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
-        }
+        }*/
 
     }
 
