@@ -37,10 +37,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
 @TeleOp(name="G3", group="Falcon")
-//@Disabled
+@Disabled
 public class G3 extends OpMode {
 
     DcMotor motorRight;

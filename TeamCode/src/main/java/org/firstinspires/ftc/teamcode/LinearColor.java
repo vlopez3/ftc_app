@@ -72,7 +72,7 @@ import com.qualcomm.robotcore.hardware.LightSensor;
  */
 
 @Autonomous(name="Linear Color ", group="Pushbot")
- //@Disabled
+ @Disabled
 public class LinearColor extends LinearOpMode {
 
 

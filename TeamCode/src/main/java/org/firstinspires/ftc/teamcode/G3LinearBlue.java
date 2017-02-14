@@ -66,7 +66,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
  */
 
 @Autonomous(name="G3 Linear Blue", group="Pushbot")
-//@Disabled
+@Disabled
 public class G3LinearBlue extends LinearOpMode {
 
     /* Declare OpMode members. */
