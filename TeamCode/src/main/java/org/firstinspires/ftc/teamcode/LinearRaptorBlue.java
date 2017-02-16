@@ -69,7 +69,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
  */
 
 @Autonomous(name="Lnear Raptor Blue", group="Pushbot")
- @Disabled
+ //@Disabled
 public class LinearRaptorBlue extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -89,7 +89,7 @@ public class LinearRaptorBlue extends LinearOpMode {
     static final double     WHITE_THRESHOLD = 0.2;
     static final double gray = 0.1;
     private ColorSensor colorSensor;
-    OpticalDistanceSensor   lightSensor;
+
 
 
 
@@ -112,7 +112,7 @@ public class LinearRaptorBlue extends LinearOpMode {
         scoop = hardwareMap.dcMotor.get("scoop");
         shoot = hardwareMap.dcMotor.get("shoot");
         servo = hardwareMap.servo.get("servo");
-        //lightSensor = hardwareMap.opticalDistanceSensor.get("ods");
+
 
 
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -120,11 +120,6 @@ public class LinearRaptorBlue extends LinearOpMode {
         // get a reference to our ColorSensor object.
         colorSensor = hardwareMap.colorSensor.get("color");
         colorSensor.enableLed(false);
-        //lightSensor.enableLed(true);
-
-        // Set the LED in the beginning
-       //colorSensor.enableLed(bLedOn);
-
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -147,37 +142,18 @@ public class LinearRaptorBlue extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        /*The sequence for the whole autonomous mode is:
-        1. Shoot 1st ball
-        2. Load
-        3. Shoot 2nd ball
-        4. Rotate
-        5. Move forward
-        6. Rotate
-        7. Move forward to seek for the line
-        8. Rotate till sensor detects gray again to position robot in front of beacon
-        9. Forward to press the beacon
-        10. Check the color and then:
-            11. If color right move backwards to park
-            OR
-            12. If color wrong then move back, forward to press beacon again, then back to park
-         */
 
-
-/*
-        encoderDrive(0.5,50,50,5);
-        driveToPosition(0.2,-1019,1019,5);
-        encoderDrive(0.5,43,43,5);
-        */
-        //10. Check the color and
-        telemetry.addData("ColorNumber", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
+        telemetry.addData("ColorReading", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
         telemetry.update();
+        sleep(3000);
 
         //12. If color right then push and park
        if(colorSensor.blue()>=4 ){
 
-           telemetry.addData("Blue", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
+           telemetry.addData("Selected Blue", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
            telemetry.update();
+           //check the new position for the servo
+           servo.setPosition(0);
            sleep(5000);
            encoderDrive(0.5,5,5,5);
            //check again if the beacon is blue
@@ -193,12 +169,12 @@ public class LinearRaptorBlue extends LinearOpMode {
        }
        //12. If color wrong then rotate servo then forward and then park
         else {
-           telemetry.addData("Red", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
+           telemetry.addData("Selected Red", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
            telemetry.update();
-           //check the new position for the servo
-           servo.setPosition(1);
+           sleep(2000);
+
            //move forward to push
-           encoderDrive(0.5,-10,-10,5);
+           encoderDrive(0.5,5,5,5);
            if(colorSensor.blue()>=4 ){
                sleep(5000);
                //move back
@@ -206,7 +182,7 @@ public class LinearRaptorBlue extends LinearOpMode {
                //move forward to bpush again
                encoderDrive(0.5,10,10,5);
            }
-           encoderDrive(0.5,10,10,5);
+
            encoderDrive(0.5,-48,-48,5);
            sleep(2000);
            }

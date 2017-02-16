@@ -169,7 +169,7 @@ public class TalonLinearBlue extends LinearOpMode {
 
         //Beginning the motion
         //1. Turns
-        driveToPosition(0.4, 3956,3296,5);
+        encoderDrive(0.5,33,33,5);
         //2. Shoot 1st ball
         shoot.setTargetPosition(-1099);
         shoot.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -202,27 +202,28 @@ public class TalonLinearBlue extends LinearOpMode {
         }
 //Heading for the Beacons
         //5. Move fwd
-        encoderDrive(0.5,32,32,5);
+        encoderDrive(0.5,29,29,5);
         //6 Turn
-        driveToPosition(0.4,-661,666,5);
+        driveToPosition(0.4,-626,571,5);
         //7 Move fwd to touch the Beacon
-        encoderDrive(0.5,25,25,5);
+        encoderDrive(0.4,15.5,15.5,5);
 
         //8. check beacon
-        telemetry.addData("ColorNumber", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
+        telemetry.addData("Color Detected", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
         telemetry.update();
+        sleep(2000);
 
         //8.1. If color right (Blue) then move back
-       if(colorSensor.blue()>=8 ){
+       if(colorSensor.blue()>=4 ){
 
-           telemetry.addData("Blue", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
+           telemetry.addData("Selected Blue", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
            telemetry.update();
            encoderDrive(0.5,-23,-23,5);
            sleep(2000);
        }
        //8.2. If color wrong then move back and forward then back
         else {
-           telemetry.addData("Red", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
+           telemetry.addData("Selected Red", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
            telemetry.update();
            encoderDrive(0.5,-10,-10,5);
            sleep(5000);
@@ -333,7 +334,7 @@ public class TalonLinearBlue extends LinearOpMode {
             motorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            //  sleep(250);   // optional pause after each move
+            sleep(2000);   // optional pause after each move
         }
     }
     public void driveToPosition(double speed,
@@ -381,7 +382,7 @@ public class TalonLinearBlue extends LinearOpMode {
             motorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            //  sleep(250);   // optional pause after each move
+            sleep(2000);   // optional pause after each move
         }
     }
 

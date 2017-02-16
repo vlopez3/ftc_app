@@ -46,7 +46,6 @@ public class TalonSlow extends OpMode {
 
     DcMotor motorRight;
     DcMotor motorLeft;
-    DcMotor motor3;
     DcMotor scoop;
     DcMotor shoot;
    // float positionLeft = 0;
@@ -57,18 +56,18 @@ public class TalonSlow extends OpMode {
 
         motorRight = hardwareMap.dcMotor.get("motorRight");
         motorLeft = hardwareMap.dcMotor.get("motorLeft");
-        motor3 = hardwareMap.dcMotor.get("motor3");
+
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
         scoop = hardwareMap.dcMotor.get("scoop");
         shoot = hardwareMap.dcMotor.get("shoot");
         motorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motor3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         shoot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         shoot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motor3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
 
 
@@ -110,7 +109,7 @@ public class TalonSlow extends OpMode {
 
         motorRight.setPower(0.2*right);
         motorLeft.setPower(0.2*left);
-        motor3.setPower(center);
+
         shoot.setPower(0.1*right2);
         telemetry.addData("Shooter:","%d",
                 shoot.getCurrentPosition());
