@@ -68,7 +68,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
  */
 
 @Autonomous(name="Talon Linear Blue", group="Pushbot")
- @Disabled
+ //@Disabled
 public class TalonLinearBlue extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -109,7 +109,7 @@ public class TalonLinearBlue extends LinearOpMode {
         motorLeft = hardwareMap.dcMotor.get("motorLeft");
         scoop = hardwareMap.dcMotor.get("scoop");
         shoot = hardwareMap.dcMotor.get("shoot");
-        //lightSensor = hardwareMap.opticalDistanceSensor.get("ods");
+        lightSensor = hardwareMap.opticalDistanceSensor.get("ods");
 
 
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -117,7 +117,7 @@ public class TalonLinearBlue extends LinearOpMode {
         // get a reference to our ColorSensor object.
         colorSensor = hardwareMap.colorSensor.get("color");
         colorSensor.enableLed(false);
-        //lightSensor.enableLed(true);
+        lightSensor.enableLed(true);
 
         // Set the LED in the beginning
        //colorSensor.enableLed(bLedOn);
@@ -145,26 +145,31 @@ public class TalonLinearBlue extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         /*The sequence for the whole autonomous mode is:
-        1. Shoot 1st ball
-        2. Load
-        3. Shoot 2nd ball
-        4. Rotate
-        5. Move forward
-        6. Rotate
-        7. Move forward to seek for the line
-        8. Rotate till sensor detects gray again to position robot in front of beacon
-        9. Forward to press the beacon
-        10. Check the color and then:
-            11. If color right move backwards to park
-            OR
-            12. If color wrong then move back, forward to press beacon again, then back to park
+        1. Move fwd
+        2. Shoot
+        3. Reload
+        4. Shoot
+        5. Fwd
+        6. Turn
+        7. Fwd to beacon
+        8. Test Beacon
+        9. Turn
+        10. Fwd
+        11. Turn
+        12. Fwd to beacon
+        13. Test Beacon
+        14. Back
+        15. Turn.
+        16. Back to park
+
+
          */
 
 
 
         //Beginning the motion
         //1. Turns
-
+        driveToPosition(0.4, 3956,3296,5);
         //2. Shoot 1st ball
         shoot.setTargetPosition(-1099);
         shoot.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -195,42 +200,71 @@ public class TalonLinearBlue extends LinearOpMode {
                     motorRight.getCurrentPosition(), shoot.getCurrentPosition());
             telemetry.update();
         }
+//Heading for the Beacons
+        //5. Move fwd
+        encoderDrive(0.5,32,32,5);
+        //6 Turn
+        driveToPosition(0.4,-661,666,5);
+        //7 Move fwd to touch the Beacon
+        encoderDrive(0.5,25,25,5);
 
-        driveToPosition(0.5,-1051,1036,5);
-        encoderDrive(0.4,-84,-84,5);
-        //encoderDrive(0.2,-12,12,5);
-        //5. Move forward
-
-        //encoderDrive(0.2,12,12,5);
-        //6. Rotate
-        driveToPosition(0.2,+1570,-1570,5);
-
-        sleep(250);
-
-        encoderDrive(0.5,46,46,5);
-
-        //10. Check the color and
+        //8. check beacon
         telemetry.addData("ColorNumber", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
         telemetry.update();
 
-        //12. If color right (Blue) then move back to park
+        //8.1. If color right (Blue) then move back
        if(colorSensor.blue()>=8 ){
 
            telemetry.addData("Blue", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
            telemetry.update();
-           encoderDrive(0.5,-46,-46,5);
+           encoderDrive(0.5,-23,-23,5);
            sleep(2000);
        }
-       //12. If color wrong then move back and forward
+       //8.2. If color wrong then move back and forward then back
         else {
            telemetry.addData("Red", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
            telemetry.update();
            encoderDrive(0.5,-10,-10,5);
            sleep(5000);
            encoderDrive(0.5,10,10,5);
-           encoderDrive(0.5,-46,-46,5);
+           encoderDrive(0.5,-23,-23,5);
 
            }
+        //9. Turn to move towards 2nd beacon
+        driveToPosition(0.4,1046,-1078,5);
+        //10. Move fwd to second beacon
+        encoderDrive(0.5,50,50,5);
+        //11. Turn to head beacon
+        driveToPosition(0.4,-1096,1073,5);
+        //12. move forward to press beacon
+        encoderDrive(0.5,25,25,5);
+        //13. check  2nd beacon
+        telemetry.addData("ColorNumber", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
+        telemetry.update();
+
+        //13.1. If color right (Blue) then move back
+        if(colorSensor.blue()>=8 ){
+
+            telemetry.addData("Blue", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
+            telemetry.update();
+            encoderDrive(0.5,-32,-32,5);
+            sleep(2000);
+        }
+        //13.2. If color wrong then move back and forward then back
+        else {
+            telemetry.addData("Red", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
+            telemetry.update();
+            encoderDrive(0.5,-10,-10,5);
+            sleep(5000);
+            encoderDrive(0.5,10,10,5);
+            encoderDrive(0.5,-32,-32,5);
+
+        }
+        //14. Turn to park
+        driveToPosition(0.4,659,-671,5);
+        //15. Park
+        driveToPosition(0.5,-4623,-4682,5);
+
         //move back to park
 
 
