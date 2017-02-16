@@ -142,7 +142,13 @@ public class LinearRaptorBlue extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-
+        //move backwds
+        encoderDrive(0.5,55,55,5);
+        //turns
+        driveToPosition(0.4,-772,737,5);
+        //backwds
+        driveToPosition(0.4,1494,1510,5);
+        //check sensor
         telemetry.addData("ColorReading", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
         telemetry.update();
         sleep(3000);
@@ -153,18 +159,16 @@ public class LinearRaptorBlue extends LinearOpMode {
            telemetry.addData("Selected Blue", "Red %d Blue %d Green %d",colorSensor.red(),colorSensor.blue(),colorSensor.green());
            telemetry.update();
            //check the new position for the servo
-           servo.setPosition(0);
-           sleep(5000);
-           encoderDrive(0.5,5,5,5);
-           //check again if the beacon is blue
-           if(colorSensor.red()>=4 ){
-               sleep(5000);
-               //move back
-               encoderDrive(0.5,-10,-10,5);
-               //move forward to bpush again
-               encoderDrive(0.5,10,10,5);
-           }
-          encoderDrive(0.5,-48,-48,5);
+           encoderDrive(0.5,-9.5,-9.5,5);
+           //turn for second beacon
+           driveToPosition(0.4,1109,-1101,5);
+           driveToPosition(0.4,4107,4082,5);
+           driveToPosition(0.4,-1077,1052,5);
+           driveToPosition(0.4,1654,1623,5);
+           //check color
+           if(colorSensor.blue()>4){
+           encoderDrive(0.2,2,2,2);
+           //checking color
            sleep(2000);
        }
        //12. If color wrong then rotate servo then forward and then park
